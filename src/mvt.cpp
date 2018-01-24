@@ -8,8 +8,8 @@
 
 void init_mvt_hpp() {
     boost::python::class_<mvt_geometry, std::shared_ptr<mvt_geometry>>("mvt_geometry", boost::python::init<int, long long, long long>())
-        //.def("operator<", &mvt_geometry::operator<)
-        //.def("operator==", &mvt_geometry::operator==)
+        .def("__lt__", &mvt_geometry::operator<)
+        .def("__eq__", &mvt_geometry::operator==)
         .def_readwrite("x", &mvt_geometry::x)
         .def_readwrite("y", &mvt_geometry::y)
         .def_readwrite("op", &mvt_geometry::op)
@@ -22,7 +22,7 @@ void init_mvt_hpp() {
         .def_readwrite("has_id", &mvt_feature::has_id)
         ;
     boost::python::class_<mvt_value, std::shared_ptr<mvt_value>>("mvt_value")
-        //.def("operator<", &mvt_value::operator<)
+        .def("__lt__", &mvt_value::operator<)
         .def("toString", &mvt_value::toString)
         .def_readwrite("type", &mvt_value::type)
         .def_readwrite("string_value", &mvt_value::string_value)
