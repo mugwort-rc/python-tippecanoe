@@ -1,7 +1,7 @@
-python-tippecanoe:
+python-tippecanoe:  
 Copyright (c) 2018, mugwort_rc.
 
-tippecanoe:
+tippecanoe:  
 Copyright (c) 2014, Mapbox Inc.  
 All rights reserved.
 
