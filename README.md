@@ -2,7 +2,7 @@
 
 ## Build
 
-```console
+```sh
 git clone https://github.com/mapbox/tippecanoe
 cd tippecanoe
 git clone https://github.com/mugwort-rc/python-tippecanoe python
