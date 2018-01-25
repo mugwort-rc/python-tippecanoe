@@ -6,8 +6,16 @@
 #include <boost/python.hpp>
 
 
+#include "def_visitor/mvt_geometry_def_visitor.hpp"
+#include "def_visitor/mvt_feature_def_visitor.hpp"
+#include "def_visitor/mvt_value_def_visitor.hpp"
+#include "def_visitor/mvt_layer_def_visitor.hpp"
+#include "def_visitor/mvt_tile_def_visitor.hpp"
+
+
 void init_mvt_hpp() {
     boost::python::class_<mvt_geometry, std::shared_ptr<mvt_geometry>>("mvt_geometry", boost::python::init<int, long long, long long>())
+        .def(mvt_geometry_def_visitor())
         .def("__lt__", &mvt_geometry::operator<)
         .def("__eq__", &mvt_geometry::operator==)
         .def_readwrite("x", &mvt_geometry::x)
@@ -15,6 +23,7 @@ void init_mvt_hpp() {
         .def_readwrite("op", &mvt_geometry::op)
         ;
     boost::python::class_<mvt_feature, std::shared_ptr<mvt_feature>>("mvt_feature")
+        .def(mvt_feature_def_visitor())
         .def_readwrite("tags", &mvt_feature::tags)
         .def_readwrite("geometry", &mvt_feature::geometry)
         .def_readwrite("type", &mvt_feature::type)
@@ -22,6 +31,7 @@ void init_mvt_hpp() {
         .def_readwrite("has_id", &mvt_feature::has_id)
         ;
     boost::python::class_<mvt_value, std::shared_ptr<mvt_value>>("mvt_value")
+        .def(mvt_value_def_visitor())
         .def("__lt__", &mvt_value::operator<)
         .def("toString", &mvt_value::toString)
         .def_readwrite("type", &mvt_value::type)
@@ -29,6 +39,7 @@ void init_mvt_hpp() {
         .def_readwrite("numeric_value", &mvt_value::numeric_value)
         ;
     boost::python::class_<mvt_layer, std::shared_ptr<mvt_layer>>("mvt_layer")
+        .def(mvt_layer_def_visitor())
         .def("tag", &mvt_layer::tag)
         .def_readwrite("version", &mvt_layer::version)
         .def_readwrite("name", &mvt_layer::name)
@@ -40,6 +51,7 @@ void init_mvt_hpp() {
         .def_readwrite("value_map", &mvt_layer::value_map)
         ;
     boost::python::class_<mvt_tile, std::shared_ptr<mvt_tile>>("mvt_tile")
+        .def(mvt_tile_def_visitor())
         .def("encode", &mvt_tile::encode)
         .def("decode", &mvt_tile::decode)
         .def_readwrite("layers", &mvt_tile::layers)

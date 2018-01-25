@@ -4,6 +4,8 @@
 #include "../../main.hpp"
 #include "../../mvt.hpp"
 
+#include "def_visitor/vector_def_visitor.hpp"
+#include "def_visitor/mvt_value_vector_def_visitor.hpp"
 
 extern void init_mvt_hpp();
 
@@ -50,6 +52,7 @@ template <typename T>
 boost::python::class_<std::vector<T>> init_vector_T(const char *name) {
     return boost::python::class_<std::vector<T>>(name)
         .def(boost::python::vector_indexing_suite<std::vector<T>>())
+        .def(vector_def_visitor<T>())
         ;
 }
 
@@ -63,7 +66,9 @@ BOOST_PYTHON_MODULE(__tippecanoe) {
     // used at mvt_layer
     init_vector_T<mvt_feature>("mvt_feature_vector");
     init_vector_T<std::string>("string_vector");
-    init_vector_T<mvt_value>("mvt_value_vector");
+    init_vector_T<mvt_value>("mvt_value_vector")
+        .def(mvt_value_vector_def_visitor())
+        ;
     // used at mvt_tile
     init_vector_T<mvt_layer>("mvt_layer_vector");
 }
